@@ -15,6 +15,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Root route
+app.get('/', (req, res) => {
+    res.send('Welcome to the API');
+});
+
 // Routes // Using the imported routes
 app.use('/api/workouts', workoutRoutes);
 app.use('/api/user', userRoutes);
@@ -23,8 +28,9 @@ app.use('/api/user', userRoutes);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     // Listening for requests
-    app.listen(process.env.PORT, () => {
-        console.log("Listening on,", process.env.PORT);
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
+        console.log(`Listening on port ${PORT}`);
     });
   })
   .catch((error) => {
